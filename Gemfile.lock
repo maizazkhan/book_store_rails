@@ -61,6 +61,10 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    devise_token_auth (1.2.4)
+      bcrypt (~> 3.0)
+      devise (> 3.5.2, < 5)
+      rails (>= 4.2.0, < 7.3)
     erubis (2.7.0)
     execjs (2.10.0)
     ffi (1.17.0)
@@ -186,6 +190,7 @@ DEPENDENCIES
   cancancan (~> 1.10)
   coffee-rails (~> 4.1.0)
   devise (~> 3.5)
+  devise_token_auth
   jbuilder (~> 2.0)
   jquery-rails
   pg (~> 0.15)
