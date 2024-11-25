@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.11.3'
 # Use sqlite3 as the database for Active Record
@@ -14,10 +13,8 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-gem 'devise', '~> 3.5'
-
-gem 'devise_token_auth'
-
+gem 'devise', '~> 4.8.1'
+gem 'devise-token_authenticatable'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -40,6 +37,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  # Gem used for debugging
+  gem 'pry'
 end
 
 group :development do
@@ -50,4 +49,4 @@ group :development do
   gem 'spring'
 end
 
-gem 'cancancan', '~> 1.10' #for roles and permission
+gem 'cancancan', '~> 1.10' # for roles and permission

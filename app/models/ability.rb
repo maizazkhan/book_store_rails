@@ -9,10 +9,10 @@ class Ability
       can :manage, :all
     elsif user.manager?
       can :manage, Book
-      can :read, Bookstore
+      # can :read, Bookstore
     else
       can :read, Book
-      can :read, Bookstore
+      # can :read, Bookstore
     end
     #
     # The first argument to `can` is the action you are giving the user
