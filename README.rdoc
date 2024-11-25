@@ -1,0 +1,41 @@
+== README
+
+This README would normally document whatever steps are necessary to get the
+application up and running.
+
+Things you may want to cover:
+
+* Rails version
+rails -v 2.4.11.3 as per Getting Stated with rails official documentation
+
+* Ruby version
+Ruby - 2.6.0
+
+* System dependencies
+This code can be executed on Ubuntu 20 or macOS 11
+
+* Configuration
+N/A
+
+* Data Base
+PostreSql - Install on local machine postgress make sure it runs on local machine. Then install gem 'pg', '~> 0.15'
+In Database yml change the adaptor to postgresql
+
+* Database creation
+rake db:create
+
+* Database initialization
+rake db:migrate
+
+* How to run the test suite
+N/A
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
+
+
+Please feel free to use a different markup language if you do not plan to run
+<tt>rake doc:app</tt>.
