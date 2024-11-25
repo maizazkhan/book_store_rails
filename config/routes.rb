@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       devise_for :users, controllers: { sessions: 'api/v1/sessions' }
       resources :books
+      resources :bookstores
     end
   end
 end
