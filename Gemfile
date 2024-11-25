@@ -47,3 +47,4 @@ group :development do
   gem 'spring'
 end
 
+gem 'cancancan', '~> 1.10' #for roles and permission
