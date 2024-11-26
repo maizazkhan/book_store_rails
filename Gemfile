@@ -50,3 +50,6 @@ group :development do
 end
 
 gem 'cancancan', '~> 1.10' # for roles and permission
+
+gem 'sidekiq', '~> 4.2'
+gem 'sidekiq-cron'
