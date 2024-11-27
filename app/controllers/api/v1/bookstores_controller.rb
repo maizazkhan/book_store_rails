@@ -1,7 +1,8 @@
 class Api::V1::BookstoresController < ApplicationController
 
   def index
-    @book_stores = Bookstore.all
+    @q = Bookstore.ransack(params[:q])
+    @book_stores = @q.result(distinct: true)
   end
 
   # GET /api/v1/bookstores/:id
