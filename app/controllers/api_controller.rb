@@ -3,6 +3,16 @@ class ApiController < ActionController::Base
 
   respond_to :json
 
+  rescue_from CanCan::AccessDenied do |exception|
+    if user_signed_in?
+      # User is signed in, but doesn't have permission to access the resource
+      render json: { success: false, message: 'Unauthorized.' }, status: 401
+    else
+      # User is not signed in
+      render json: { success: false, message: 'Please Sign In to continue.' }, status: 401
+    end
+  end
+
   private
 
   def authenticate

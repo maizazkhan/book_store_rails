@@ -3,7 +3,9 @@ class Api::V1::BooksController < ApiController
   load_and_authorize_resource
 
   def index
-    @q = Book.ransack(params[:q])
+    @q = Book.ransack(
+      title_or_author_or_description_cont: params[:q]
+    )
     @books = @q.result(distinct: true)
   end
 

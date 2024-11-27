@@ -1,13 +1,13 @@
 json.array! @books do |book|
-  book.id = book.id
-  book.title = book.title
-  book.author = book.author
-  book.publisher = book.publisher
-  book.genre = book.genre
-  book.year = book.year
-  book.page_count = book.page_count
-  book.description = book.description
-  book.price = book.price
-  book.created_at = book.created_at
-  book.updated_at = book.updated_at
+  json.id  book.id
+  json.title book.title
+  json.author book.author
+  json.publisher book.publisher
+  json.genre book.genre
+  json.year book.year
+  json.page_count book.page_count
+  json.description book.description
+  json.price book.price
+  json.created_at book.created_at
+  json.updated_at book.updated_at
 end

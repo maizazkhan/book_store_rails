@@ -1,4 +1,5 @@
-class Api::V1::BookstoresController < ApplicationController
+class Api::V1::BookstoresController < ApiController
+  load_and_authorize_resource
 
   def index
     @q = Bookstore.ransack(params[:q])
@@ -40,6 +41,7 @@ class Api::V1::BookstoresController < ApplicationController
   private
 
   def bookstore_params
-    params.require(:bookstore).permit(:name, :address, :phone)
+    params.permit(:name, :address, :phone)
   end
+
 end
