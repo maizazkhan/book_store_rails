@@ -1,43 +1,80 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Project Overview
+This project is an online bookstore management system built with Ruby on Rails 4.2. It includes features such as bookstore and book management, tracking purchases, calculating revenue, and generating reports. Additionally, the system includes an admin dashboard that provides metrics like the total number of bookstores, books, and revenue trends. Background jobs are used to generate monthly sales reports and automatically email them to bookstore managers.
 
-Things you may want to cover:
+* Features
+Bookstore Management: Allows creation, updating, and deletion of bookstores.
+Book Management: Enables the addition, updating, and deletion of books in bookstores.
+Purchases: Purchases books from bookstores and adds a 5% markup to the price, saving the data in the purchases table.
+Admin Dashboard: Displays key metrics such as total bookstores, total books, revenue trends, and best-performing bookstores.
+Revenue Calculation: Displays revenue by subtracting the 5% markup added to the purchase price.
+Background Jobs: Monthly sales reports are generated using Sidekiq and emailed to bookstore managers.
+Technologies Used
+Ruby on Rails 4.2
+PostgreSQL (for database)
+Sidekiq (for background jobs)
+CanCanCan (for authorization)
+ActionMailer (for sending emails)
+Chartkick (for visualizing revenue trends)
 
-* Rails version
-rails -v 2.4.11.3 as per Getting Stated with rails official documentation
 
-* Ruby version
-Ruby - 2.6.0
+** Setup Instructions
 
-* System dependencies
-This code can be executed on Ubuntu 20 or macOS 11
+* Prerequisites
+Ruby 2.6+ (Check Ruby version: ruby -v)
+Rails 4.2 (Check Rails version: rails -v)
+PostgreSQL (Make sure PostgreSQL is installed and running)
+Redis (for Sidekiq background jobs)
 
-* Configuration
-N/A
+** Steps to Set Up
 
-* Data Base
-PostreSql - Install on local machine postgress make sure it runs on local machine. Then install gem 'pg', '~> 0.15'
-In Database yml change the adaptor to postgresql
+* Clone the repository:
 
-* Database creation
+bash
+git clone https://github.com/yourusername/bookstore-management-system.git
+cd bookstore-management-system
+Install dependencies:
+
+* Install Ruby gems:
+bash
+bundle install
+
+* Install JavaScript dependencies (if any):
+bash
+yarn install
+Set up the database:
+
+* Create and migrate the database:
+bash
 rake db:create
-
-* Database initialization
 rake db:migrate
+rake db:seed  # (Optional, to seed sample data)
 
-* How to run the test suite
-N/A
+** Set up Sidekiq (for background jobs):
 
-* Services (job queues, cache servers, search engines, etc.)
+Install Redis if not already installed. On macOS, you can use Homebrew:
+bash
+brew install redis (macOS)
 
-* Deployment instructions
+* Start Redis server:
+bash
+redis-server
 
-* ...
+* Start the Rails server:
+bash
+rails server
+
+* Start Sidekiq (in a separate terminal window):
+
+bash
+bundle exec sidekiq
+
+
+Access the application: Visit http://localhost:3000 to access the application.
+
+Access the admin dashboard: After logging in as an admin user, visit http://localhost:3000/admin_dashboard to view the metrics.
 
 * Install gems
 bundle _1.17.3_ install
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
