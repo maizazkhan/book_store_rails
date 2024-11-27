@@ -2,34 +2,40 @@ class GenerateMonthlySalesReportWorker
   include Sidekiq::Worker
 
   def perform(month, year)
-    # Example logic to generate sales report for a specific month and year
+    # Define the start and end dates for the month and year
     start_date = Date.new(year, month, 1)
     end_date = start_date.end_of_month
 
-    # Get sales data for the month (this is just an example, adapt to your models)
-    sales_data = Bookstore.joins(:books).where(books: { sold_at: start_date..end_date }).group(:name).sum(:price)
+    # Get the sales data from the Purchase table for the given month and year
+    sales_data = Purchase.joins(:bookstore)
+                         .where(created_at: start_date..end_date)
+                         .group("bookstores.name")
+                         .sum(:price)  # The 'price' includes the 5% markup
 
-    # Generate report as CSV (you could also generate PDF or any other format)
-    report = generate_report(sales_data)
+    # Generate the sales report as a string (this can be customized to your needs)
+    report = generate_report(sales_data, start_date, end_date)
 
-    # Send email with report to managers (assuming you have an email method set up)
-    User.all.each do |manager|
+    # Send the generated report to all managers
+    User.where(role: 1).each do |manager|  # Send only to managers
       SalesMailer.monthly_report(manager, report).deliver_now
     end
   end
 
   private
 
-  def generate_report(sales_data)
-    # This method would generate a report (e.g., CSV, PDF, or just a text summary)
-    # For simplicity, we'll generate a CSV string
-    CSV.generate do |csv|
-      csv << ["Bookstore", "Total Sales"]
-      sales_data.each do |bookstore, total_sales|
-        csv << [bookstore, total_sales]
-      end
+  def generate_report(sales_data, start_date, end_date)
+    # This method generates the report in a textual format.
+    report = "Monthly Sales Report\n"
+    report += "------------------------\n"
+    report += "Date Range: #{start_date.strftime('%B %d, %Y')} - #{end_date.strftime('%B %d, %Y')}\n\n"
+    report += "Bookstore Name  | Total Sales (with 5% added)\n"
+    report += "--------------------------------------------\n"
+
+    # Format the sales data for each bookstore
+    sales_data.each do |bookstore_name, total_sales|
+      report += "#{bookstore_name}  | $#{'%.2f' % total_sales}\n"
     end
+
+    report
   end
-
-
 end
