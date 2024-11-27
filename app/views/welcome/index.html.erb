@@ -1,2 +1,17 @@
-<h1> Welcome ! </h1>
-<h1> Book Store Management System </h1>
+<div class="container mt-4 text-center">
+  <h1>Welcome! <%= current_user.email if user_signed_in? %></h1>
+  <h1>Book Store Management System</h1>
+
+  <% if user_signed_in? %>
+    <% if current_user.admin? %>
+      <%= button_to 'Dashboard', admin_dashboard_index_path, method: :get, class: 'btn btn-danger' %>
+    <% else %>
+      <%= link_to 'Book Stores', bookstores_path, class: 'btn btn-primary' %>
+    <% end %>
+    <!-- Show logout button if the user is signed in -->
+    <%= button_to 'Logout', destroy_user_session_path, method: :delete, class: 'btn btn-danger mt-2' %>
+  <% else %>
+    <!-- Optionally, you can show a login/signup link if the user is not signed in -->
+    <%= link_to 'Login', new_user_session_path, class: 'btn btn-primary mt-2' %>
+  <% end %>
+</div>

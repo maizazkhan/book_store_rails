@@ -1,0 +1,19 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-body">
+      <h1 class="card-title">Book: <%= @book.title %></h1>
+      <p class="card-text"><strong>Author:</strong> <%= @book.author %></p>
+      <p class="card-text"><strong>Price:</strong> <%= @book.price %></p>
+
+      <!-- Link to navigate back to the bookstore -->
+      <%= link_to 'Back to Bookstore', bookstore_books_path(@bookstore), class: 'btn btn-primary' %>
+
+      <!-- Purchase Button -->
+      <% if user_signed_in? %>
+        <%= link_to 'Purchase', purchase_bookstore_book_path(@bookstore, @book), method: :post, class: 'btn btn-success' %>
+      <% else %>
+        <p class="mt-2">Please <%= link_to 'log in', new_user_session_path %> to make a purchase.</p>
+      <% end %>
+    </div>
+  </div>
+</div>

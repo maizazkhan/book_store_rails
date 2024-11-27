@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20241125211349) do
+ActiveRecord::Schema.define(version: 20241127184836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,19 @@ ActiveRecord::Schema.define(version: 20241125211349) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "purchases", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "book_id"
+    t.integer  "bookstore_id"
+    t.decimal  "price"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "purchases", ["book_id"], name: "index_purchases_on_book_id", using: :btree
+  add_index "purchases", ["bookstore_id"], name: "index_purchases_on_bookstore_id", using: :btree
+  add_index "purchases", ["user_id"], name: "index_purchases_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                           default: "",      null: false
     t.string   "encrypted_password",              default: "",      null: false
@@ -55,7 +68,7 @@ ActiveRecord::Schema.define(version: 20241125211349) do
     t.datetime "confirmation_sent_at"
     t.datetime "created_at",                                        null: false
     t.datetime "updated_at",                                        null: false
-    t.string   "role"
+    t.integer  "role",                            default: 0
     t.string   "uid",                             default: "",      null: false
     t.string   "provider",                        default: "email", null: false
     t.text     "authentication_token"
@@ -67,4 +80,7 @@ ActiveRecord::Schema.define(version: 20241125211349) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "books", "bookstores"
+  add_foreign_key "purchases", "books"
+  add_foreign_key "purchases", "bookstores"
+  add_foreign_key "purchases", "users"
 end

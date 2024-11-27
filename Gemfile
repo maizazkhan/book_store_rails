@@ -55,3 +55,7 @@ gem 'sidekiq', '~> 4.2'
 gem 'sidekiq-cron'
 
 gem 'ransack'
+
+gem 'chartkick'
+gem 'groupdate'
+

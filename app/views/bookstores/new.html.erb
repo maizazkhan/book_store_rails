@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <h1>New Bookstore</h1>
+
+  <%= form_for @bookstore do |f| %>
+    <% if @bookstore.errors.any? %>
+      <div class="alert alert-danger">
+        <ul>
+          <% @bookstore.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :address %>
+      <%= f.text_field :address, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :phone %>
+      <%= f.number_field :phone, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit 'Create Bookstore', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+
+  <%= link_to 'Back', bookstores_path, class: 'btn btn-secondary mt-2' %>
+</div>

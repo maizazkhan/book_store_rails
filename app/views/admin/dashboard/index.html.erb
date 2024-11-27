@@ -1,4 +1,56 @@
-<h1>Admin Dashboard</h1>
-<p>Total Bookstores: <%= @total_bookstores %></p>
-<p>Total Books: <%= @total_books %></p>
-<p>Total Revenue: <%= @total_revenue %></p>
+<!-- app/views/admin/dashboard/index.html.erb -->
+<div class="container mt-4">
+  <h1>Admin Dashboard</h1>
+
+  <div class="row mt-4">
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Total Bookstores</h5>
+          <p class="card-text"><%= @total_bookstores %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Total Books</h5>
+          <p class="card-text"><%= @total_books %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Total Revenue</h5>
+          <p class="card-text"><%= number_to_currency(@total_revenue) %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="mt-4">Revenue Trends</h3>
+  <div id="revenue_trends">
+    <%= line_chart @revenue_trends, height: '500px' %> <!-- Using chartkick for line charts -->
+  </div>
+
+  <h3 class="mt-4">Best Performing Bookstores</h3>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Bookstore Name</th>
+      <th>Total Revenue</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @best_performing_bookstores.each do |bookstore| %>
+      <tr>
+        <td><%= bookstore.name %></td>
+        <td><%= number_to_currency(bookstore.total_revenue) %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

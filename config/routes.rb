@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
+  get 'purchases/create'
+
   # mount_devise_token_auth_for 'User', at: 'auth'
   devise_for :users
-
+  resources :bookstores do
+    resources :books do
+      post 'purchase', to: 'purchases#create', on: :member
+    end
+  end
   root "welcome#index"
 
   namespace :admin do

@@ -1,0 +1,57 @@
+<div class="container mt-4">
+  <h1>Books in <%= @bookstore.name %></h1>
+
+  <% if can? :create, Book %>
+    <%= link_to 'Add New Book', new_bookstore_book_path(@bookstore), class: 'btn btn-primary mb-3' %>
+  <% end %>
+
+  <!-- Ransack Search Form -->
+  <%= search_form_for @q, url: bookstore_books_path(@bookstore), method: :get, class: 'mb-3' do |f| %>
+    <div class="form-row">
+      <div class="col-md-3">
+        <%= f.label :title_cont, 'Search by Title' %>
+        <%= f.text_field :title_cont, class: 'form-control' %>
+      </div>
+      <div class="col-md-3">
+        <%= f.label :author_cont, 'Search by Author' %>
+        <%= f.text_field :author_cont, class: 'form-control' %>
+      </div>
+      <div class="col-md-3">
+        <%= f.submit 'Search', class: 'btn btn-secondary mt-4' %>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Books Table -->
+  <table class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Price</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @books.each do |book| %>
+      <tr>
+        <td><%= book.title %></td>
+        <td><%= book.author %></td>
+        <td><%= book.price %></td>
+        <td>
+          <%= link_to 'Show', bookstore_book_path(@bookstore, book), class: 'btn btn-info btn-sm' %> |
+          <% if can? :update, book %>
+            <%= link_to 'Edit', edit_bookstore_book_path(@bookstore, book), class: 'btn btn-warning btn-sm' %> |
+          <% end %>
+          <% if can? :destroy, book %>
+            <%= link_to 'Delete', bookstore_book_path(@bookstore, book), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+          <% end %>
+          <% if user_signed_in? %>
+            <%= link_to 'Purchase', purchase_bookstore_book_path(@bookstore, book), method: :post, class: 'btn btn-success btn-sm' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

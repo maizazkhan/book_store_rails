@@ -1,0 +1,37 @@
+<div class="container mt-4">
+  <h1>Bookstores</h1>
+
+  <% if can? :create, Bookstore %>
+    <%= link_to 'New Bookstore', new_bookstore_path, class: 'btn btn-primary mb-3' %>
+  <% end %>
+
+  <table class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Phone</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @bookstores.each do |bookstore| %>
+      <tr>
+        <td><%= bookstore.name %></td>
+        <td><%= bookstore.address %></td>
+        <td><%= bookstore.phone %></td>
+        <td>
+          <%= link_to 'Show', bookstore_path(bookstore), class: 'btn btn-info btn-sm' %> |
+          <% if can? :update, bookstore %>
+            <%= link_to 'Edit', edit_bookstore_path(bookstore), class: 'btn btn-warning btn-sm' %> |
+          <% end %>
+          <% if can? :destroy, bookstore %>
+            <%= link_to 'Delete', bookstore_path(bookstore), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+          <% end %>
+          <%= link_to 'View All Books', bookstore_books_path(bookstore), class: 'btn btn-secondary btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
