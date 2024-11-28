@@ -3,6 +3,14 @@ module Api
     class SessionsController < Devise::SessionsController
       skip_before_action :verify_authenticity_token
 
+      resource_description do
+        short 'User Sessions Management'
+        description 'API for managing user sessions, including login and authentication.'
+      end
+
+      api :POST, '/api/v1/sign_in', 'User sign in'
+      param :email, String, desc: 'Email of the user', required: true
+      param :password, String, desc: 'Password of the user', required: true
       def create
         user_exists = User.find_by(email: params[:email])
         resource = User.find_for_database_authentication(email: params[:email])
@@ -31,7 +39,7 @@ module Api
             invalid_login_attempt
           end
         else
-          render json: { message: 'Please confirm your email.' }, success: false, status: 401
+          render json: { message: 'Something went wrong, Please contact support' }, success: false, status: 401
         end
       end
 

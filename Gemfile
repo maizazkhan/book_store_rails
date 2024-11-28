@@ -60,3 +60,4 @@ gem 'ransack'
 gem 'chartkick'
 gem 'groupdate'
 
+gem 'apipie-rails', '~> 0.5.17'
